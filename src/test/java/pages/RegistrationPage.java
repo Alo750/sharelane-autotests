@@ -13,6 +13,8 @@ public class RegistrationPage {
     private By registerButton = By.cssSelector("input[value='Register']");
     private By confirmationMessage = By.xpath("//span[contains(text(),'Account is created')]");
     private By errorMessage = By.className("error_message");
+    private By assignedEmail = By.xpath("//td[text()='Email']/following-sibling::td");
+    private By assignedPassword = By.xpath("//td[text()='Password']/following-sibling::td");
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -37,5 +39,14 @@ public class RegistrationPage {
 
     public boolean isErrorMessageDisplayed() {
         return driver.findElement(errorMessage).isDisplayed();
+    }
+
+    // Сайт подменяет введённые данные — забираем реальные со страницы подтверждения
+    public String getAssignedEmail() {
+        return driver.findElement(assignedEmail).getText();
+    }
+
+    public String getAssignedPassword() {
+        return driver.findElement(assignedPassword).getText();
     }
 }
